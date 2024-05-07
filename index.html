@@ -93,7 +93,13 @@
         For computing minimum-cut/maximum-flow, we can use algorithms like Ford-Fulkerson, Dinic's Algorithm and more. In this project, I will be utilizing GrabCut method, Felzenswalb's Algorithm and Boykov-Kolmogorov Algorithm for graph-based image segmentation. The time-complexity for each of them has high-variance. </p>
         <p><b>GrabCut </b></p>
         <p>
-        The Edmonds-Karp algorithm is an implementation of the Ford-Fulkerson method. First, we define a residual network $G_f=(V,E_f)$ to be the same network but with capacity $c_f(u,v)=c(u,v)-f(u,v)$ and no flow. The idea behind the Ford-Fulkerson method is that if there exists a path from $s$ to $t$ in the residual network, then we can augment the current flow by this path. This path is called the augmenting path. The augmentation of this path is equal to the smallest residual capacity along this path. Once no augmenting path can be found, the current flow must be the max-flow.</p>
+        The GrabCut algorithm is commonly used for image segmentation tasks, and does not directly use minimum cut or maximum flow algorithms. Instead, it employs an iterative optimization technique based on graph cuts.
+          </p>
+
+        <figure>
+          <img src="images/grabcut.png", alt="GrabCut">
+          <figcaption> An example of GrabCut method for image segmentation (citation 'Human body'). </figcaption>
+          </figure>
 <pre><code><b>while</b> there is a path from s to t in the residual network:
     flow = min([residual capacity of every edge along this path]) 
     <b>for</b> every edge (u,v) in this path:
