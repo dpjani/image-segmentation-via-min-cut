@@ -89,8 +89,8 @@
           Now with the graph fully defined, we can run a graph cut algorithm to find the maximum flow/minimum cut. 
         <h2 id="algos"> Algorithms</h2>
         <p>
-        There are several algorithms for finding the maximum flow/minimum cut. This project explores the efficiency of the Edmonds-Karp algorithm and the push-relabel algorithm. Though these are very standard and straightforward algorithms, we caution that they are often slow in practice. </p>
-        <p><b>Edmonds-Karp Algorithm </b></p>
+        For computing minimum-cut/maximum-flow, we can use algorithms like Ford-Fulkerson, Dinic's Algorithm and more. In this project, I will be utilizing GrabCut method, Felzenswalb's Algorithm and Boykov-Kolmogorov Algorithm for graph-based image segmentation. The time-complexity for each of them has high-variance. </p>
+        <p><b>GrabCut </b></p>
         <p>
         The Edmonds-Karp algorithm is an implementation of the Ford-Fulkerson method. First, we define a residual network $G_f=(V,E_f)$ to be the same network but with capacity $c_f(u,v)=c(u,v)-f(u,v)$ and no flow. The idea behind the Ford-Fulkerson method is that if there exists a path from $s$ to $t$ in the residual network, then we can augment the current flow by this path. This path is called the augmenting path. The augmentation of this path is equal to the smallest residual capacity along this path. Once no augmenting path can be found, the current flow must be the max-flow.</p>
 <pre><code><b>while</b> there is a path from s to t in the residual network:
@@ -106,7 +106,7 @@
         <p>
         The Edmonds-Karp algorithm is an $O(VE^2)$ algorithm. An augmenting path can be found in $O(E)$, and the length of such path is $O(V)$. Since in every iteration, at least one edge becomes fully saturated, the number of times the same path is found to be the augmenting path is $O(V)$. This means the total number of times we can find an augmenting path is bounded by $O(VE)$. The body of the while loop runs in $O(E)$ time, so in total the time complexity is $O(VE^2)$. An accessible proof can be found in CLRS.
         </p>
-        <p><b>Push Relabel Algorithm </b></p>
+        <p><b>Felzenswalb's Algorithm </b></p>
         <p>
         In the Push Relabel algorithm, we maintain a "preflow", which is a flow sent through the network but does not necessarily satisfy the flow conservation. In a preflow, the flow entering a vertex can be larger than the flow exiting the vertex. Given a preflow, a vertex can have an excess flow equal to the difference between the flow entering the vertex and the flow exiting the vertex. A vertex with excess flow is called an overflowing vertex.</p>
         <p>
@@ -120,6 +120,18 @@
     push(u) or relabel(u) </code></pre>
         <p>
         The Push Relabel algorithm runs in $O(V^2E)$ time, improving upon the Edmonds-Karp algorithm. We prove this by bounding the number of times a vertex can be found overflowing. </p>
+
+        <p><b>Boykov-Kolmogorov Algorithm Algorithm </b></p>
+        <p>
+        In the Push Relabel algorithm, we maintain a "preflow", which is a flow sent through the network but does not necessarily satisfy the flow conservation. In a preflow, the flow entering a vertex can be larger than the flow exiting the vertex. Given a preflow, a vertex can have an excess flow equal to the difference between the flow entering the vertex and the flow exiting the vertex. A vertex with excess flow is called an overflowing vertex.</p>
+        <p>
+        In addition, we augment each vertex with a height attribute. Let $h(u)$ denote the height of a vertex u. The heights determine how a flow can be pushed. We can only push a flow from a higher vertex to a lower vertex, and not the other way around.
+        </p>
+        <p>
+        We start off by saturating all outgoing edges from $s$. This produces a valid preflow. We also set the height of $s$ to be the number of vertices. All other heights are set to 0. The algorithm centers around two main operations: push and relabel. For a given vertex $u$, we can push it by finding an outgoing edge from $u$ that is not saturated. The push to this edge is equal to the minimum of the residual capacity of the edge and the excess flow of $u$. Once the flow is pushed, the excess flow at $u$ falls by the amount of the pushed flow, and the excess flow at $v$ increases by the same amount. Not all edges can be pushed, however. In that case, we will relabel $u$ by setting the height of $u$ to be 
+          $$h(u)=1+\min\{h(v)|(u,v)\in E_f\}$$
+      </p>
+        
         <! -- <h2 id="usage"> Usage </h2>
         <p>
         The source code is available for download at <a href=https://github.com/julie-jiang/image-segmentation/>https://github.com/julie-jiang/image-segmentation/</a>.
