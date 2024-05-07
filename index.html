@@ -103,7 +103,7 @@
 
         <p> The algorithm used in GrabCut is an iterative optimization process that alternates between estimating the foreground and background regions of the image and updating the probability distributions based on these estimates. This process is guided by a graph-based energy function that incorporates both color similarity and spatial coherence constraints.  </p>
         
-<pre><code>  # Simple implementation of GrabCut
+<pre><code>  # Simple implementation of GrabCut<br>
   <b>function</b> grabCut(image, mask):
     Initialize foreground <b>and</b> background models
     Repeat <b>until</b> convergence:
@@ -115,18 +115,17 @@
         
     <p>
       Initializing the foreground and background models typically has a time complexity of $O(N)$, where N is the number of pixels in the image. Updating the Gaussian models for foreground and background involves iterating over all pixels in the image, resulting in a time complexity of $O(N)$. Minimizing the energy typically involves solving an optimization problem, such as graph cuts, which can have a time complexity that depends on the specific optimization technique used. Let's denote the time complexity of energy minimization as $O(E)$.  the overall time complexity of the GrabCut algorithm can be approximated as:
-<b>$O(N + K * (N + E))$</b>
+<code><b>$O(N + K * (N + E))$</b></code>
     </p>
 
         <p><b>Felzenswalb's Algorithm </b></p>
         <p>
         Felzenszwalb algorithm is an image segmentation algorithm developed by Pedro F. Felzenszwalb and Daniel P. Huttenlocher. This algorithm is widely used for segmenting images into meaningful regions based on the differences in intensity or color.</p>
         <p>
-        In addition, we augment each vertex with a height attribute. Let $h(u)$ denote the height of a vertex u. The heights determine how a flow can be pushed. We can only push a flow from a higher vertex to a lower vertex, and not the other way around.
+        The Felzenszwalb algorithm is based on a graph-based approach where pixels are represented as nodes in a graph, and edges are defined based on the similarity between neighboring pixels. The algorithm then iteratively merges regions based on a criterion that combines both color similarity and spatial proximity.
         </p>
         <p>
-        We start off by saturating all outgoing edges from $s$. This produces a valid preflow. We also set the height of $s$ to be the number of vertices. All other heights are set to 0. The algorithm centers around two main operations: push and relabel. For a given vertex $u$, we can push it by finding an outgoing edge from $u$ that is not saturated. The push to this edge is equal to the minimum of the residual capacity of the edge and the excess flow of $u$. Once the flow is pushed, the excess flow at $u$ falls by the amount of the pushed flow, and the excess flow at $v$ increases by the same amount. Not all edges can be pushed, however. In that case, we will relabel $u$ by setting the height of $u$ to be 
-          $$h(u)=1+\min\{h(v)|(u,v)\in E_f\}$$
+        One of the advantages of the Felzenszwalb algorithm is its ability to produce hierarchical segmentations, where segments can be merged or split at different scales. This allows for a more flexible representation of image regions compared to traditional segmentation methods.
       </p>
 <pre><code><b>while</b> there exists an overflowing vertex u:
     push(u) or relabel(u) </code></pre>
