@@ -12,6 +12,7 @@
     </head>
     <body>
       <div class="nav">
+        <a href="#intro"> INTRO</a>
         <a href="#networkflow"> NETWORK FLOW</a>
         <a href="#image2graph"> IMAGE TO GRAPH </a>
         <a href="#algos"> ALGORITHMS</a>
@@ -31,7 +32,7 @@
          
         
         
-        <h2 id="networkflow"> Intro </h2>
+        <h2 id="intro"> Intro </h2>
   
           <p> Graph cut algorithms are a class of optimization algorithms used in computer vision and image processing for tasks such as image segmentation and object detection. </p>
           <p>
@@ -132,30 +133,7 @@
           $$h(u)=1+\min\{h(v)|(u,v)\in E_f\}$$
       </p>
         
-        <! -- <h2 id="usage"> Usage </h2>
-        <p>
-        The source code is available for download at <a href=https://github.com/julie-jiang/image-segmentation/>https://github.com/julie-jiang/image-segmentation/</a>.
-        Make sure you have the following dependencies installed:</p>
-          <ul> 
-            <li>Python 2 or 3</li>
-            <li><a href=https://opencv.org/>OpenCV</a> for python</li>
-            <li>NumPy</li>
-          </li>
-        </ul>
-        <p>
-        To run the program, provide a JPG image and run</p>
-<pre><code>$ python imagesegmentation.py yourImage.jpg</code></pre>
-        <p>
-        A window will soon pop up prompting you to plant object (foreground) seeds. Use your cursor to mark points or draw lines on the window to label any part of the graph as foreground. Once you're done, press ESC to continue. A second window will now pop up prompting you to plant background seeds. As with before, press ESC to continue. In about half a minute, the resulting image segmented image will be shown. Press ESC when you're ready to quit the program. The seeded image and the segmented image will both be saved.</p>
-        <figure id="usagePics">
-          <img src="images/usageOBJ.png", alt="Planting foreground seeds">
-          <img src="images/usageBKG.png", alt="Planting background seeds">
-          <img src="images/usageSegmentation.png", alt="Resulting segmentation based on the planted seeds">
-          <figcaption>Image segmentation based on seeds planted by the user</figcaption>
-        </figure>
-        <p>
-        The program uses the Edmonds-Karp algorithm by default. To use the Push-Relabel algorithm, add the flag <code> --algorithm pr </code>.
-      </p> -->
+        
         <h2 id="limits"> Limitations </h2>
           <p>
           As the size of the network flow graph grows quadratically with the size of the input image, the program should only be used on very small images. Empirically, we found that the program runs reasonably fast (under a minute) on an image of size 30x30 pixels. Therefore, all input images will be resized to 30x30 at the beginning of the program. The following example images look big because bigger images are easier on the eyes and also because marking pixels using OpenCV is only accurate when the image is big enough. All images are sized up before being displayed or saved.  </p>
