@@ -127,22 +127,30 @@
         <p>
         One of the advantages of the Felzenszwalb algorithm is its ability to produce hierarchical segmentations, where segments can be merged or split at different scales. This allows for a more flexible representation of image regions compared to traditional segmentation methods.
       </p>
-<pre><code><b>while</b> there exists an overflowing vertex u:
-    push(u) or relabel(u) </code></pre>
+<pre><code><b>function</b> felzenszwalbSegmentation(image, scale, sigma, min_size):
+    constructGraph(image)
+    sortEdgesByWeight()
+    mergeSegments()
+    postProcessSegments(min_size)
+    return segmentedImage
+ </code></pre>
         <p>
-        The Push Relabel algorithm runs in $O(V^2E)$ time, improving upon the Edmonds-Karp algorithm. We prove this by bounding the number of times a vertex can be found overflowing. </p>
+        Felzenszwalb algorithm approximately runs in $O(N log N)$ time, where N is the number of pixels in the image. This approach is better than GrabCut and improves our time complexity. </p>
 
         <p><b>Boykov-Kolmogorov Algorithm Algorithm </b></p>
         <p>
-        In the Push Relabel algorithm, we maintain a "preflow", which is a flow sent through the network but does not necessarily satisfy the flow conservation. In a preflow, the flow entering a vertex can be larger than the flow exiting the vertex. Given a preflow, a vertex can have an excess flow equal to the difference between the flow entering the vertex and the flow exiting the vertex. A vertex with excess flow is called an overflowing vertex.</p>
+        The Boykov-Kolmogorov algorithm (the BK algorithm or BK max-flow/min-cut algorithm)  is a powerful and efficient method for solving the minimum cut problem and, by extension, the maximum flow problem in graphs. It was introduced by Vladimir Kolmogorov and Yuri Boykov.</p>
         <p>
-        In addition, we augment each vertex with a height attribute. Let $h(u)$ denote the height of a vertex u. The heights determine how a flow can be pushed. We can only push a flow from a higher vertex to a lower vertex, and not the other way around.
+        This algorithm has high efficiency and accuracy in solving large-scale graph cut problems, making it widely used in computer vision, image segmentation, and other areas where graph-based optimization is required.
         </p>
         <p>
-        We start off by saturating all outgoing edges from $s$. This produces a valid preflow. We also set the height of $s$ to be the number of vertices. All other heights are set to 0. The algorithm centers around two main operations: push and relabel. For a given vertex $u$, we can push it by finding an outgoing edge from $u$ that is not saturated. The push to this edge is equal to the minimum of the residual capacity of the edge and the excess flow of $u$. Once the flow is pushed, the excess flow at $u$ falls by the amount of the pushed flow, and the excess flow at $v$ increases by the same amount. Not all edges can be pushed, however. In that case, we will relabel $u$ by setting the height of $u$ to be 
-          $$h(u)=1+\min\{h(v)|(u,v)\in E_f\}$$
+The Boykov-Kolmogorov algorithm is based on the max-flow min-cut theorem, which states that the maximum flow passing through a network is equal to the capacity of the minimum cut in the network. The algorithm efficiently finds the minimum cut by iteratively finding augmenting paths and updating the flow in the network.
       </p>
-        
+
+        <p>
+            The Boykov-Kolmogorov algorithm's time complexity is commonly expressed as $O(V * E * log(V))$, where V is the number of vertices (nodes) and E is the number of edges in the graph. This time complexity arises from the use of binary heap data structures in the algorithm for finding augmenting paths, which typically have a time complexity of $(O(log(V))$ for insertion and deletion operations.
+          </p>
+          
         
         <h2 id="limits"> Limitations </h2>
           <p>
@@ -153,7 +161,9 @@
           <p> The performance of Felzenszwalb's algorithm can be sensitive to the parameters such as scale, sigma, and minimum size. Tuning these parameters may be required to achieve desired segmentation results across different types of images. The algorithm's time complexity can increase with the number of pixels and the complexity of the image structure. For very large images, the computational requirements may become prohibitive. </p>
         
           <p> While the Boykov-Kolmogorov algorithm often provides good results, it does not guarantee an optimal solution in all cases. The quality of the segmentation may depend on the specific characteristics of the image and the chosen parameters. The computational complexity of the Boykov-Kolmogorov algorithm can be high, especially for large graphs or images with complex structures. This can limit its applicability in real-time or resource-constrained environments. </p>
-        
+
+  
+          
         <h2 id="res"> Results </h2>
           
           <p>The following is a series of seeded images and the resulting segmentations. </p>
