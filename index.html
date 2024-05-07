@@ -100,19 +100,25 @@
           <img src="images/grabcut.png", alt="GrabCut">
           <figcaption> An example of GrabCut method for image segmentation (citation 'Human body'). </figcaption>
           </figure>
-<pre><code><b>while</b> there is a path from s to t in the residual network:
-    flow = min([residual capacity of every edge along this path]) 
-    <b>for</b> every edge (u,v) in this path:
-        residual capacity of (u,v) -= flow
-        residual capacity of (v,u) += flow</code></pre>
-        <p>
-        The Ford-Fulkerson method is called a method and not an algorithm because it does not specify how one should go about finding the augmenting path. The Edmonds-Karp algorithm specifies that the Ford-Fulkerson method be carried out via a breadth-first search to find a viable path in every iteration.</p>
-        <p>
-         Since we are interested in the min-cut, we add one additional step after the main loop. According to the definition of the  $s/t$ cut, $S$ contains the set of vertices reachable from $s$ in the residual network and $T$ contains the rest of the vertices. Therefore, we can run a depth-first search from $s$ using the residual network and deduce which edges are cut.
-        </p>
-        <p>
-        The Edmonds-Karp algorithm is an $O(VE^2)$ algorithm. An augmenting path can be found in $O(E)$, and the length of such path is $O(V)$. Since in every iteration, at least one edge becomes fully saturated, the number of times the same path is found to be the augmenting path is $O(V)$. This means the total number of times we can find an augmenting path is bounded by $O(VE)$. The body of the while loop runs in $O(E)$ time, so in total the time complexity is $O(VE^2)$. An accessible proof can be found in CLRS.
-        </p>
+
+        <p> The algorithm used in GrabCut is an iterative optimization process that alternates between estimating the foreground and background regions of the image and updating the probability distributions based on these estimates. This process is guided by a graph-based energy function that incorporates both color similarity and spatial coherence constraints.  </p>
+        
+<pre><code>
+  # Simple implementation of GrabCut
+  <b>function</b> grabCut(image, mask):
+    Initialize foreground <b>and</b> background models
+    Repeat <b>until</b> convergence:
+        Assign pixels <b>to</b> foreground <b>or</b> background based <b>on</b> mask
+        Update models
+        Minimize energy
+    <b>Return</b> segmented image
+</code></pre>
+        
+    <p>
+      Initializing the foreground and background models typically has a time complexity of $O(N)$, where N is the number of pixels in the image. Updating the Gaussian models for foreground and background involves iterating over all pixels in the image, resulting in a time complexity of $O(N)$. Minimizing the energy typically involves solving an optimization problem, such as graph cuts, which can have a time complexity that depends on the specific optimization technique used. Let's denote the time complexity of energy minimization as $O(E)$.  the overall time complexity of the GrabCut algorithm can be approximated as:
+<b>$O(N + K * (N + E))$</b>
+    </p>
+
         <p><b>Felzenswalb's Algorithm </b></p>
         <p>
         In the Push Relabel algorithm, we maintain a "preflow", which is a flow sent through the network but does not necessarily satisfy the flow conservation. In a preflow, the flow entering a vertex can be larger than the flow exiting the vertex. Given a preflow, a vertex can have an excess flow equal to the difference between the flow entering the vertex and the flow exiting the vertex. A vertex with excess flow is called an overflowing vertex.</p>
