@@ -23,15 +23,20 @@
 
         <h1> Image Segmentation with Graph Cuts</h1>
         <h3> By DHRUV JANI</h3>
-        <ul>
+    <ul style="font-size: larger;">
   <li>Final project for Computational Discrete Optimization (IEOR 4008) at Columbia University in Spring 2024.</li>
   <li>In this class, I learned about x, y, and z.</li>
   <li>My advisors for this project were Prof. Yuri Faenza and Benjamin (TA).</li>
-</ul>         Enjoy! -Dhruv </p>
-
-         <h2 id="networkflow"> Intro </h2>
+</ul>
+         
+        
+        
+        <h2 id="networkflow"> Intro </h2>
   
-          <p> Graph algorithms have been successfully applied to a number of computer vision and image processing problems. My interest is in the application of graph cut algorithms to the problem of image segmentation. </p>
+          <p> Graph cut algorithms are a class of optimization algorithms used in computer vision and image processing for tasks such as image segmentation and object detection. </p>
+          <p>
+          By eliminating a small set of edges, these algorithms seek to divide a graph into two disjoint sets (often referred to as source and sink) by maximizing the capacity of the remaining edges or minimizing the overall weight of the deleted edges.
+          </p>
           <p>
           This project focuses on using graph cuts to divide an image into background and foreground segments. The framework consists of two parts. First, a network flow graph is built based on the input image. Then a max-flow algorithm is run on the graph in order to find the min-cut, which produces the optimal segmentation.
            </p>
