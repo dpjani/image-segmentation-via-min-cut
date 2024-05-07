@@ -136,9 +136,13 @@
         
         <h2 id="limits"> Limitations </h2>
           <p>
-          As the size of the network flow graph grows quadratically with the size of the input image, the program should only be used on very small images. Empirically, we found that the program runs reasonably fast (under a minute) on an image of size 30x30 pixels. Therefore, all input images will be resized to 30x30 at the beginning of the program. The following example images look big because bigger images are easier on the eyes and also because marking pixels using OpenCV is only accurate when the image is big enough. All images are sized up before being displayed or saved.  </p>
+          While the Ford-Fulkerson algorithm is effective for finding maximum flows in networks, it can be inefficient for large networks with dense connectivity. In such cases, the algorithm may take a long time to converge to the optimal solution or may even encounter issues such as infinite loops. The algorithm may require significant memory, especially when dealing with large networks or graphs.  </p>
 
-          <p> Furthermore, the program may fail to identify the correct cuts. For example, if there isn't sufficient seeds, then the program may only cut between the source/sink vertex and the pixel vertices--corresponding to no visible cuts in our image--or it may try to cut only around the seeds. One solution is to increase the number of seeds. Another method, introduced by Shi and Malik in <i> Normalized Cuts and Image Segmentation</i>, uses normalized cuts to penalize cuts that only partition a small localized region of the image.</p>
+          <p> GrabCut requires an initial rectangle or mask to initialize the segmentation. The quality of this initialization can significantly affect the segmentation result.  For large images, GrabCut may require substantial memory and processing power, especially when dealing with high-resolution images.</p>
+
+          <p> The performance of Felzenszwalb's algorithm can be sensitive to the parameters such as scale, sigma, and minimum size. Tuning these parameters may be required to achieve desired segmentation results across different types of images. The algorithm's time complexity can increase with the number of pixels and the complexity of the image structure. For very large images, the computational requirements may become prohibitive. </p>
+        
+          <p> While the Boykov-Kolmogorov algorithm often provides good results, it does not guarantee an optimal solution in all cases. The quality of the segmentation may depend on the specific characteristics of the image and the chosen parameters. The computational complexity of the Boykov-Kolmogorov algorithm can be high, especially for large graphs or images with complex structures. This can limit its applicability in real-time or resource-constrained environments. </p>
         
         <h2 id="res"> Results </h2>
           
