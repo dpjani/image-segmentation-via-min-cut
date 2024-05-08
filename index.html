@@ -98,7 +98,7 @@
 
         <figure>
           <img src="images/grabcut.png", alt="GrabCut">
-          <figcaption> An example of GrabCut method for image segmentation ((Huang et al., 2017)). </figcaption>
+          <figcaption> An example of GrabCut method for image segmentation (Huang et al., 2017). </figcaption>
           </figure>
 
         <p> The algorithm used in GrabCut is an iterative optimization process that alternates between estimating the foreground and background regions of the image and updating the probability distributions based on these estimates. This process is guided by a graph-based energy function that incorporates both color similarity and spatial coherence constraints.  </p>
@@ -175,10 +175,10 @@ The Boykov-Kolmogorov algorithm is based on the max-flow min-cut theorem, which 
             <img src="images/results2.png" alt="results2.png">
           </figure>
 
-          <p>The following is a plot displaying time complexity of the algorithms used for image segmentation. </p>
           <figure class="results">
             <img src="images/comparing_algorithms.png" alt="comparing_algorithms.png">
-          </figure>  
+            <figcaption>The following is a plot displaying time complexity of the algorithms used for image segmentation. </figcaption>
+          </figure>  <br>
 
         <p>Based on the results and above visualizations, we infer that GrabCut is least time efficient while Boykov Kolmogorov is the best choice for image segmentation. </p>
         <p>For example, in our tesla image segmentation, GrabCut method takes about 361 seconds (6 minutes), while Felzenszwalb algorithm takes 13.78 seconds and the Boykov-Kolmogorov algorithm takes 13.1 seconds.  </p>
