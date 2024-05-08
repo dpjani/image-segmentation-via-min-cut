@@ -189,7 +189,14 @@ The Boykov-Kolmogorov algorithm is based on the max-flow min-cut theorem, which 
 
         <h2 id="con"> Conclusion & Improvements</h2>
 
-        <p>Minimum Cut algorithm performs better in time complexity & optimality than Karger's algorithm for directed graphs. On the contrary, Karger outperforms Minimum Cut when robustness to noise is prioritized over optimality. Karger's algorithm runs in $O(|V|)^2$ time which has higher probability of success than Minimum Cut method whose time complexity is generally $O(|V|)^3 $. GrabCut methods provide good results for medium-sized images but is computationally expensive for large images resulting in bad time complexity. Felzenszwalb's Algorithm does not guarantee optimal solution for image segmentation but provides a fast-efficient method for generating super-pixels. It offers linearithmic time complexity which is suitable for real-time and interactive segmentation techniques. Boykov-Kolmogorov offer the most optimal and efficient image segmentation results as compared to the above methods. It can handle complex and large images.</p>
+        <p>Minimum Cut algorithm performs better in time complexity & optimality than Karger's algorithm for directed graphs. 
+        On the contrary, Karger outperforms Minimum Cut when robustness to noise is prioritized over optimality. 
+        Karger's algorithm runs in $O(|V|)^2$ time which has higher probability of success than Minimum Cut method whose time complexity is generally $O(|V|)^3 $. </p>
+        
+        <p>GrabCut methods provide good results for medium-sized images but is computationally expensive for large images resulting in bad time complexity.</p> 
+        
+        <p>Felzenszwalb's Algorithm does not guarantee optimal solution for image segmentation but provides a fast-efficient method for generating super-pixels. It offers linearithmic time complexity which is suitable for real-time and interactive segmentation techniques.</p>
+          <p>Boykov-Kolmogorov offer the most optimal and efficient image segmentation results as compared to the above methods. It can handle complex and large images.</p>
         <p>There is scope of improvement by using some efficient algorithms like Push-Relable algorithm, Mean-Shift algorithm, and CNNs/FCNS (Deep-Learning segmentation techniques). Improvements can also be done by parameter tuning, feature selection, and image pre-processing.</p>
        
         <h2 id="ref"> References </h2>
