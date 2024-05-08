@@ -1,0 +1,81 @@
+# Simple implementation of min-cut algorithm and karger's algorithm for a basic Vehicle Routing Graph Problem.
+# We observe that time-complexity for min-cut = 0.004 seconds while karger's algorithm = 2.24 seconds
+
+import random
+import time
+import networkx as nx
+import matplotlib.pyplot as plt
+
+def karger(graph):
+    while len(graph) > 2:
+        u, v = random.choice(list(graph.edges))
+        graph = nx.contracted_edge(graph, (u, v), self_loops=False)
+        plot_graph(graph, "Intermediate Step in Karger's Algorithm")
+    return graph
+
+def max_flow_min_cut(graph):
+    directed_graph = nx.DiGraph()
+    directed_graph.add_nodes_from(graph.nodes)
+    for u, v in graph.edges:
+        directed_graph.add_edge(u, v, capacity=1)
+        directed_graph.add_edge(v, u, capacity=1)
+    # Designate source and sink nodes
+    source = 's'
+    sink = 't'
+    directed_graph.add_node(source)
+    directed_graph.add_node(sink)
+    for node in graph.nodes:
+        if node != source and node != sink:
+            directed_graph.add_edge(source, node, capacity=1)
+            directed_graph.add_edge(node, sink, capacity=1)
+
+    intermediate_results = []
+
+    for node in graph.nodes:
+        if node != source and node != sink:
+            intermediate_results.append(directed_graph.copy())
+            directed_graph.add_edge(node, sink, capacity=float('inf'))
+
+    # Compute max-flow min-cut
+    flow_value, partition = nx.maximum_flow(directed_graph, source, sink)
+
+    reachable = {node for node, reachable in partition.items() if reachable}
+    non_reachable = set(graph.nodes) - reachable
+    return graph.subgraph(reachable), graph.subgraph(non_reachable), intermediate_results
+
+
+def plot_graph(graph, title):
+    pos = nx.spring_layout(graph)
+    nx.draw(graph, pos, with_labels=True)
+    plt.title(title)
+    plt.show()
+
+def compare_algorithms(graph):
+    start_time = time.time()
+    karger_result = karger(graph.copy())
+    karger_time = time.time() - start_time
+
+    start_time = time.time()
+    max_flow_min_cut_result, _, intermediate_results = max_flow_min_cut(graph.copy())
+    max_flow_min_cut_time = time.time() - start_time
+
+    plot_graph(karger_result, f"Karger's Algorithm (Time: {karger_time:.6f}s)")
+
+    for i, intermediate_result in enumerate(intermediate_results):
+        plot_graph(intermediate_result, f"Intermediate Step {i+1} in Max-Flow Min-Cut Algorithm")
+
+    plot_graph(max_flow_min_cut_result, f"Max-Flow Min-Cut Algorithm (Time: {max_flow_min_cut_time:.6f}s)")
+
+    print("Karger's Algorithm Time:", karger_time)
+    print("Max-Flow Min-Cut Algorithm Time:", max_flow_min_cut_time)
+
+
+if __name__ == "__main__":
+    # Create a random graph for demonstration
+    graph = nx.complete_graph(10)
+    for u, v in graph.edges():
+        graph[u][v]['weight'] = random.randint(1, 30)
+    plot_graph(graph, "Vehicle Routing Graph")
+
+    # Compare the two algorithms
+    compare_algorithms(graph)
