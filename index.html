@@ -166,7 +166,7 @@ The Boykov-Kolmogorov algorithm is based on the max-flow min-cut theorem, which 
           
         <h2 id="res"> Results </h2>
           
-          <p>The following is a series of seeded images and the resulting segmentations. </p>
+          <p>The following is a visualization of original image and its segmentation using 3 different algorithms. </p>
           
           <figure class="results">
             <img src="images/results1.png" alt="results.png">
@@ -175,7 +175,14 @@ The Boykov-Kolmogorov algorithm is based on the max-flow min-cut theorem, which 
             <img src="images/results2.png" alt="results2.png">
           </figure>
 
+          <p>The following is a plot displaying time complexity of the algorithms used for image segmentation. </p>
+          <figure class="results">
+            <img src="images/comparing_algorithms.png" alt="comparing_algorithms.png">
+          </figure>  
 
+        <p>Based on the results and above visualizations, we infer that GrabCut is least time efficient while Boykov Kolmogorov is the best choice for image segmentation. </p>
+        <p>For example, in our tesla image segmentation, GrabCut method takes about 361 seconds (6 minutes), while Felzenszwalb algorithm takes 13.78 seconds and the Boykov-Kolmogorov algorithm takes 13.1 seconds.  </p>
+        
         <h2 id="ref"> References </h2>
         <ul>
           <li>Boykov, Yuri Y., and M-P. Jolly. <a href="http://www.csd.uwo.ca/~yuri/Papers/iccv01.pdf"> "Interactive graph cuts for optimal boundary & region segmentation of objects in ND images."</a> In Computer Vision, 2001. ICCV 2001. Proceedings. Eighth IEEE International Conference on, vol. 1, pp. 105-112. IEEE, 2001.</li>
